@@ -89,8 +89,7 @@
 
   <div class="card" id="mainCard">
     <img src="dancing.gif" alt="Asking GIF">
-    <h1>Will you be my Valentine?💘  <i><span style="font-size: 9px;">yaks</span></i></h1>
-    
+    <h1>Will you be my Valentine?💘  <i><span style="font-size: 11px;">yaks</span></i></h1>
     
     <div class="btn-container">
       <button class="yes" id="yesBtn" onclick="yesClicked()">Yes Ofcourse ❤️💖</button>
@@ -111,32 +110,40 @@
       "Dili gyud? 😰",
       "Pag-usab og huna-huna! ✨",
       "Sigurado na gyud ka? 🥀",
-      "Maka-guol man ni... 🛑",
       "Di na mahangyo? 🙁",
-      "nggggiiiiiii! ❤️",
-      "Ka-bugnaw nimo oy! ❄️",
-      "Usba imong huna-huna! 🔄",
-      "Please na ba... 🧸",
-      "Final answer na na? 🏁",
-      "iYES NALANG GUD NA 😢",
-      "Naguba na akong kasing-kasing... ;(",
-      "Ako nalay mag yes hahaha👩🏻‍🦯",
-      "Pugsanay man ni 🧚🏻‍♂️"
+      "nggggiiiiiii! ❤️"
     ];
 
     function noClicked() {
       const music = document.getElementById('bgMusic');
       music.play().catch(() => {});
 
+      // If we have already shown all phrases, trigger the "Ok Bye" screen
+      if (noCount >= phrases.length - 1) {
+        showByeScreen();
+        return;
+      }
+
       noCount++;
       
       const noBtn = document.getElementById("noBtn");
-      noBtn.innerText = phrases[Math.min(noCount, phrases.length - 1)];
+      noBtn.innerText = phrases[noCount];
 
       const yesBtn = document.getElementById("yesBtn");
       const currentSize = 18 + (noCount * 15); 
       yesBtn.style.fontSize = currentSize + "px";
       yesBtn.style.padding = (12 + noCount * 5) + "px " + (25 + noCount * 10) + "px";
+    }
+
+    function showByeScreen() {
+      document.body.innerHTML = `
+        <div style="display:flex; justify-content:center; align-items:center; height:100vh; background: #2c3e50; color:white; text-align:center; font-family:sans-serif; width:100%;">
+          <div>
+            <h1 style="font-size: 50px;">ok bye... 🥀</h1>
+            <img src="https://media.tenor.com/C_Snd7Xz5pUAAAAC/sad-cat.gif" style="width:250px; border-radius:20px; margin-top:20px;">
+          </div>
+        </div>
+      `;
     }
 
     function yesClicked() {
@@ -146,7 +153,6 @@
             <h1 style="font-size: 50px;">YAY!!! 💕🎉</h1>
             <p style="font-size: 32px; font-weight: bold;">hapihapihapi 💜❤️</p>
             <img src="cat.gif" style="width:250px; border-radius:20px; margin-top:20px;">
-            
           </div>
         </div>
       `;
