@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ceb">
+<head>
+  <meta charset="UTF-8">
+  <title>Will you be my Valentine? 💜❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #4b0082, #ff4d6d);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 90%;
+      z-index: 2;
+    }
+
+    h1 { font-size: 32px; }
+    p { font-size: 20px; }
+
+    img {
+      width: 200px;
+      border-radius: 15px;
+      margin: 15px 0;
+    }
+
+    .btn-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s ease;
+    }
+
+    .yes {
+      background-color: #ff4d6d;
+      color: white;
+      font-size: 18px;
+    }
+
+    .no {
+      background-color: #ffffff;
+      color: #333;
+      font-size: 16px;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 25px;
+      animation: floatUp 5s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 0.8; }
+      100% { transform: translateY(-110vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <audio id="bgMusic" loop>
+    <source src="love.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="card" id="mainCard">
+    <img src="dancing.gif" alt="Asking GIF">
+    <h1>Will you be my Valentine? 💘</h1>
+    
+    <div class="btn-container">
+      <button class="yes" id="yesBtn" onclick="yesClicked()">Yes Ofcourse ❤️💖</button>
+      <button class="no" id="noBtn" onclick="noClicked()">Di ko oy 💔</button>
+    </div>
+
+    <p style="margin-top: 30px; opacity: 0.8;"> 💜💜💜</p>
+  </div>
+
+  <script>
+    let noCount = 0;
+    const phrases = [
+      "Dili 💔",
+      "Sure na ka? 🥺",
+      "Mao na gyud na? 😿",
+      "Huna-hunaa sa pag-ayo! 💭",
+      "Last chance na ni! ⚠️",
+      "Dili gyud? 😰",
+      "Pag-usab og huna-huna! ✨",
+      "Sigurado na gyud ka? 🥀",
+      "Maka-guol man ni... 🛑",
+      "Di na mahangyo? 🙁",
+      "nggggiiiiiii! ❤️",
+      "Ka-bugnaw nimo oy! ❄️",
+      "Usba imong huna-huna! 🔄",
+      "Please na ba... 🧸",
+      "Final answer na na? 🏁",
+      "iYES NALANG GUD NA 😢",
+      "Naguba na akong kasing-kasing... ;("
+      "Ako nalay mag yes hahaha👩🏻‍🦯"
+      "Pugsanay man ni 🧚🏻‍♂️"
+    ];
+
+    function noClicked() {
+      const music = document.getElementById('bgMusic');
+      music.play().catch(() => {});
+
+      noCount++;
+      
+      const noBtn = document.getElementById("noBtn");
+      noBtn.innerText = phrases[Math.min(noCount, phrases.length - 1)];
+
+      const yesBtn = document.getElementById("yesBtn");
+      const currentSize = 18 + (noCount * 15); 
+      yesBtn.style.fontSize = currentSize + "px";
+      yesBtn.style.padding = (12 + noCount * 5) + "px " + (25 + noCount * 10) + "px";
+    }
+
+    function yesClicked() {
+      document.body.innerHTML = `
+        <div style="display:flex; justify-content:center; align-items:center; height:100vh; background:linear-gradient(135deg, purple, red); color:white; text-align:center; font-family:sans-serif; width:100%;">
+          <div>
+            <h1 style="font-size: 50px;">YAY!!! 💕🎉</h1>
+            <p style="font-size: 32px; font-weight: bold;">hapihapihapi 💜❤️</p>
+            <img src="/https://media1.tenor.com/m/w_xkJNZpzhgAAAAd/goofy.gif" style="width:250px; border-radius:20px; margin-top:20px;">
+          </div>
+        </div>
+      `;
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 400);
+  </script>
+
+</body>
+</html>
