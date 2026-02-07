@@ -100,73 +100,83 @@
   </div>
 
   <script>
-    let noCount = 0;
-    const phrases = [
-      "Dili 💔",
-      "Sure na ka? 🥺",
-      "Mao na gyud na? 😿",
-      "Huna-hunaa sa pag-ayo! 💭",
-      "Last chance na ni! ⚠️",
-      "Dili gyud? 😰",
-      "Pag-usab og huna-huna! ✨",
-      "Sigurado na gyud ka? 🥀",
-      "Di na mahangyo? 🙁",
-      "nggggiiiiiii! ❤️"
-    ];
+ let noCount = 0;
+  const music = document.getElementById('bgMusic');
 
-    function noClicked() {
-      const music = document.getElementById('bgMusic');
-      music.play().catch(() => {});
+  // This function tries to play music on the first click anywhere on the page
+  document.addEventListener('click', function() {
+    music.play().catch(error => {
+      console.log("Autoplay prevented, waiting for further interaction.");
+    });
+  }, { once: true }); // { once: true } makes it only run on the first click
 
-      if (noCount >= phrases.length - 1) {
-        showByeScreen();
-        return;
-      }
+  const phrases = [
+    "Dili 💔",
+    "Sure na ka? 🥺",
+    "Mao na gyud na? 😿",
+    "Huna-hunaa sa pag-ayo! 💭",
+    "Last chance na ni! ⚠️",
+    "Dili gyud? 😰",
+    "Pag-usab og huna-huna! ✨",
+    "Sigurado na gyud ka? 🥀",
+    "Di na mahangyo? 🙁",
+    "nggggiiiiiii! ❤️"
+  ];
 
-      noCount++;
-      
-      const noBtn = document.getElementById("noBtn");
-      noBtn.innerText = phrases[noCount];
+  function noClicked() {
+    // Ensure music plays if it hasn't already
+    music.play().catch(() => {});
 
-      const yesBtn = document.getElementById("yesBtn");
-      const currentSize = 18 + (noCount * 15); 
-      yesBtn.style.fontSize = currentSize + "px";
-      yesBtn.style.padding = (12 + noCount * 5) + "px " + (25 + noCount * 10) + "px";
+    // Logic for "Ok Bye" screen after phrases end
+    if (noCount >= phrases.length - 1) {
+      showByeScreen();
+      return;
     }
 
-    function showByeScreen() {
-      document.body.innerHTML = `
-        <div style="display:flex; justify-content:center; align-items:center; height:100vh; background: #2c3e50; color:white; text-align:center; font-family:sans-serif; width:100%;">
-          <div>
-            <h1 style="font-size: 50px;">ok bye </h1>
-            <img src="sad.gif" style="width:250px; border-radius:20px; margin-top:20px;">
-          </div>
+    noCount++;
+    const noBtn = document.getElementById("noBtn");
+    noBtn.innerText = phrases[noCount];
+
+    const yesBtn = document.getElementById("yesBtn");
+    const currentSize = 18 + (noCount * 15); 
+    yesBtn.style.fontSize = currentSize + "px";
+    yesBtn.style.padding = (12 + noCount * 5) + "px " + (25 + noCount * 10) + "px";
+  }
+
+  function showByeScreen() {
+    document.body.innerHTML = `
+      <div style="display:flex; justify-content:center; align-items:center; height:100vh; background: #2c3e50; color:white; text-align:center; font-family:sans-serif; width:100%;">
+        <div>
+          <h1 style="font-size: 50px;">ok bye... 🥀</h1>
+          <img src="https://media.tenor.com/C_Snd7Xz5pUAAAAC/sad-cat.gif" style="width:250px; border-radius:20px; margin-top:20px;">
         </div>
-      `;
-    }
+      </div>
+    `;
+  }
 
-    function yesClicked() {
-      document.body.innerHTML = `
-        <div style="display:flex; justify-content:center; align-items:center; height:100vh; background:linear-gradient(135deg, purple, red); color:white; text-align:center; font-family:sans-serif; width:100%;">
-          <div>
-            <h1 style="font-size: 25px;">gege mag gmeet ra ta 🎉</h1>
-            <p style="font-size: 27px; font-weight: bold;">HAHAHAHAHA 💜❤️</p>
-            <img src="cat.gif" style="width:250px; border-radius:20px; margin-top:20px;">
-          </div>
+  function yesClicked() {
+    music.play().catch(() => {}); // Ensure music plays on Yes too
+    document.body.innerHTML = `
+      <div style="display:flex; justify-content:center; align-items:center; height:100vh; background:linear-gradient(135deg, purple, red); color:white; text-align:center; font-family:sans-serif; width:100%;">
+        <div>
+          <h1 style="font-size: 25px;">gege mag gmeet ra ta 🎉</h1>
+          <p style="font-size: 27px; font-weight: bold;">HAHAHAHAHA 💜❤️</p>
+          <img src="cat.gif" style="width:250px; border-radius:20px; margin-top:20px;">
         </div>
-      `;
-    }
+      </div>
+    `;
+  }
 
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerHTML = "💖";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
-    }
-    setInterval(createHeart, 400);
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+  setInterval(createHeart, 400);
   </script>
 
 </body>
