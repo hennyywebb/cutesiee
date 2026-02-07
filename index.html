@@ -155,17 +155,20 @@
   }
 
   function yesClicked() {
-    music.play().catch(() => {}); // Ensure music plays on Yes too
-    document.body.innerHTML = `
+    const music = document.getElementById('bgMusic');
+  music.play().catch(() => {}); 
+
+  document.body.innerHTML = `
       <div style="display:flex; justify-content:center; align-items:center; height:100vh; background:linear-gradient(135deg, purple, red); color:white; text-align:center; font-family:sans-serif; width:100%;">
         <div>
           <h1 style="font-size: 25px;">gege mag gmeet ra ta 🎉</h1>
           <p style="font-size: 27px; font-weight: bold;">HAHAHAHAHA 💜❤️</p>
           <img src="cat.gif" style="width:250px; border-radius:20px; margin-top:20px;">
         </div>
-      </div>
-    `;
-  }
+        </div>
+    `;// Re-add the audio element to the new HTML so it doesn't stop
+  document.body.appendChild(music); 
+}
 
   function createHeart() {
     const heart = document.createElement("div");
